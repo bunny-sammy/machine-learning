@@ -5,9 +5,8 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 
-# Definindo diretórios
 # Variáveis globais
 CATEGORICAS = ['local', 'tvcabo', 'debaut', 'cancel']
 
@@ -18,9 +17,6 @@ os.makedirs(db_dir, exist_ok=True)
 
 file_path = os.path.join(db_dir, 'p33.xlsx')
 df = pd.read_excel(file_path, 'TECAL')
-
-# 2. Remove linhas com valores ausentes em colunas relevantes
-# df = df[['IDADE', 'TMPRSD', 'RNDTOT', 'STATUS']].dropna()
 
 # 3. Codifica a variável de saída (STATUS): 'bom' → 0, 'mau' → 1
 label_encoder = LabelEncoder()
@@ -46,7 +42,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 # 6. Cria e treina o modelo de regressão logística
 #modelo = LogisticRegression()
-modelo = LogisticRegression(class_weight='balanced')
+modelo = LogisticRegression(class_weight='balanced', max_iter=5000)
 modelo.fit(X_train, y_train)
 
 # 7. Faz previsões com os dados de teste
@@ -55,6 +51,8 @@ y_pred = modelo.predict(X_test)
 # 8. Exibe métricas de avaliação
 print("Matriz de Confusão:")
 print(confusion_matrix(y_test, y_pred))  # mostra erros/acertos
+
+print("\nAcurácia:", accuracy_score(y_test, y_pred))
 
 print("\nRelatório de Classificação:")
 print(classification_report(y_test, y_pred))  # precisão, recall, f1-score
