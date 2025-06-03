@@ -31,7 +31,6 @@ A base de dados descreve clientes de uma companhia telef√¥nica e visa classific√
 
    ```bash
    git clone https://github.com/bunny-sammy/machine-learning.git
-   cd sonhario-api
    ```
 
 2. Crie e ative o ambiente virtual
