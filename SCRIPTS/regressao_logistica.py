@@ -6,6 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
+import seaborn as sns
 
 # Variáveis globais
 CATEGORICAS = ['local', 'tvcabo', 'debaut', 'cancel']
@@ -128,3 +129,12 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 """
+
+# 1. Heatmap da Matriz de Confusão
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=label_encoders['cancel'].classes_, yticklabels=label_encoders['cancel'].classes_)
+plt.title('Matriz de Confusão - Regressão Logística')
+plt.xlabel('Previsão')
+plt.ylabel('Verdadeiro')
+plt.show()

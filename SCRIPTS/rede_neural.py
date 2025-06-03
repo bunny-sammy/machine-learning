@@ -54,7 +54,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 # Criação e treino da rede neural
 # =============================================
 mlp = MLPClassifier(
-    hidden_layer_sizes=(100,), 
+    hidden_layer_sizes=(int(input("Neurons:")),),
     activation='relu', 
     solver='adam',                
     max_iter=300, 
