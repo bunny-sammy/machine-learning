@@ -11,7 +11,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 
 # Variáveis globais
-CATEGORICAS = ['local', 'tvcabo', 'debaut', 'cancel']
+CATEGORICAS = ['local', 'tvcabo', 'cancel']
 
 # =============================================
 # Definições de caminho
@@ -23,7 +23,7 @@ os.makedirs(db_dir, exist_ok=True)
 # =============================================
 # Carregamento da base
 # =============================================
-file_path = os.path.join(db_dir, 'p33.xlsx')
+file_path = os.path.join(db_dir, 'p33_clean.xlsx')
 df = pd.read_excel(file_path, 'TECAL')
 
 # Garantir que colunas categóricas sejam strings
@@ -40,7 +40,7 @@ for col in CATEGORICAS:
 # =============================================
 # Separação das variáveis independentes e dependente
 # =============================================
-X = df.drop(['id', 'cancel'], axis=1)
+X = df.drop(['cancel'], axis=1)
 y = df['cancel']
 
 # Normalização

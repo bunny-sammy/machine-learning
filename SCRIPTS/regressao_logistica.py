@@ -9,14 +9,14 @@ from sklearn.metrics import classification_report, accuracy_score, confusion_mat
 import seaborn as sns
 
 # Variáveis globais
-CATEGORICAS = ['local', 'tvcabo', 'debaut', 'cancel']
+CATEGORICAS = ['local', 'tvcabo', 'cancel']
 
 # 1. Definições de caminho
 base_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
 db_dir = os.path.join(base_dir, "DADOS")
 os.makedirs(db_dir, exist_ok=True)
 
-file_path = os.path.join(db_dir, 'p33.xlsx')
+file_path = os.path.join(db_dir, 'p33_clean.xlsx')
 df = pd.read_excel(file_path, 'TECAL')
 
 # 3. Codifica a variável de saída (STATUS): 'bom' → 0, 'mau' → 1
@@ -35,7 +35,7 @@ for col in CATEGORICAS:
     label_encoders[col] = le
 
 # 4. Define os preditores (X) e a variável alvo (y)
-X = df.drop(['id', 'cancel'], axis=1) # colunas independentes
+X = df.drop(['cancel'], axis=1) # colunas independentes
 y = df['cancel']  # coluna dependente
 
 # 5. Divide os dados em conjunto de treino e teste (80% treino, 20% teste)
