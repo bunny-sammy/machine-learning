@@ -9,7 +9,7 @@ from sklearn.metrics import classification_report, accuracy_score, confusion_mat
 import seaborn as sns
 
 # Variáveis globais
-CATEGORICAS = ['local', 'tvcabo', 'cancel']
+CATEGORICAS = ['local', 'tvcabo', 'debaut', 'cancel']
 
 # 1. Definições de caminho
 base_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))

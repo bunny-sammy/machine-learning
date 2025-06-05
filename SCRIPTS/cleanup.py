@@ -1,9 +1,11 @@
 import pandas as pd
+import numpy as np
+from scipy import stats
 from sklearn.preprocessing import LabelEncoder
 import os
 
 # Variáveis globais
-CATEGORICAS = ['local', 'tvcabo', 'debaut', 'cancel']
+CATEGORICAS = ['id', 'local', 'tvcabo', 'debaut', 'cancel']
 
 # Definições de caminho
 base_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
@@ -24,7 +26,12 @@ for col in CATEGORICAS:
     df[col] = le.fit_transform(df[col])
     label_encoders[col] = le
 
-# Separar variáveis independentes e dependentes
-df = df.drop(['id', 'renda', 'debaut'], axis=1)
+# Remover linhas com outliers
+df = df[(np.abs(stats.zscore(df.drop(CATEGORICAS, axis=1))) < 3).all(axis=1)]
+
+# Remover features irrelevantes
+df = df.drop(['id'], axis=1)
 print(df.head())
-df.to_excel('p33_clean.xlsx', index=False)
+
+# Salvar novo arquivo
+df.to_excel('../DADOS/p33_clean.xlsx', index=False)

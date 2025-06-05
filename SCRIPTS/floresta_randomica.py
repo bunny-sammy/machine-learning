@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import os
 
 # Variáveis globais
-CATEGORICAS = ['local', 'tvcabo', 'cancel']
+CATEGORICAS = ['local', 'tvcabo', 'debaut', 'cancel']
 
 # Definições de caminho
 base_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))

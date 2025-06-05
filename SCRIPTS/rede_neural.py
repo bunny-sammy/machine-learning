@@ -11,7 +11,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 
 # Variáveis globais
-CATEGORICAS = ['local', 'tvcabo', 'cancel']
+CATEGORICAS = ['local', 'tvcabo', 'debaut', 'cancel']
 
 # =============================================
 # Definições de caminho
@@ -40,7 +40,7 @@ for col in CATEGORICAS:
 # =============================================
 # Separação das variáveis independentes e dependente
 # =============================================
-X = df.drop(['cancel'], axis=1)
+X = df.drop(['renda', 'debaut', 'cancel'], axis=1)
 y = df['cancel']
 
 # Normalização

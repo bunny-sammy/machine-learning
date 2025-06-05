@@ -18,7 +18,7 @@ base_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
 db_dir = os.path.join(base_dir, "DADOS")
 os.makedirs(db_dir, exist_ok=True)
 
-file_path = os.path.join(db_dir, 'p33.xlsx')
+file_path = os.path.join(db_dir, 'p33_clean.xlsx')
 df = pd.read_excel(file_path, 'TECAL')
 
 # Exibir as primeiras linhas do dataframe
@@ -45,7 +45,7 @@ for col in CATEGORICAS:
     label_encoders[col] = le
 
 # Separar variáveis independentes e dependentes
-X = df.drop(['id', 'cancel'], axis=1)
+X = df.drop(['cancel'], axis=1)
 y = df['cancel']
 
 # Escalonar as features
