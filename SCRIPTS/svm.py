@@ -18,7 +18,7 @@ base_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
 db_dir = os.path.join(base_dir, "DADOS")
 os.makedirs(db_dir, exist_ok=True)
 
-file_path = os.path.join(db_dir, 'p33.xlsx')
+file_path = os.path.join(db_dir, 'p33_clean.xlsx')
 df = pd.read_excel(file_path, 'TECAL')
 
 # Exibir as primeiras linhas do dataframe
@@ -36,7 +36,7 @@ for col in CATEGORICAS:
     label_encoders[col] = le
 
 # Separar variáveis independentes e dependentes
-X = df.drop(['id', 'cancel'], axis=1)
+X = df.drop(['cancel'], axis=1)
 y = df['cancel']
 
 # Escalonar as features (essencial para SVM)
@@ -47,7 +47,7 @@ X = scaler.fit_transform(X)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Criar e treinar o modelo SVM
-clf = SVC(kernel='rbf', C=1.0, random_state=42)
+clf = SVC(kernel='rbf', C=1.0, max_iter=100, random_state=42)
 clf.fit(X_train, y_train)
 
 # Previsão
@@ -60,7 +60,7 @@ print("Relatório de Classificação:\n", classification_report(y_test, y_pred))
 
 # 1. Heatmap da Matriz de Confusão
 cm = confusion_matrix(y_test, y_pred)
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(6,5))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=label_encoders['cancel'].classes_, yticklabels=label_encoders['cancel'].classes_)
 plt.title('Matriz de Confusão - SVM')
 plt.xlabel('Previsão')

@@ -40,7 +40,7 @@ for col in CATEGORICAS:
 # =============================================
 # Separação das variáveis independentes e dependente
 # =============================================
-X = df.drop(['renda', 'debaut', 'cancel'], axis=1)
+X = df.drop(['cancel'], axis=1)
 y = df['cancel']
 
 # Normalização
@@ -57,7 +57,7 @@ mlp = MLPClassifier(
     hidden_layer_sizes=(int(input("Neurons:")),),
     activation='relu', 
     solver='adam',                
-    max_iter=300, 
+    max_iter=100, 
     random_state=42)
 
 mlp.fit(X_train, y_train)
@@ -79,7 +79,7 @@ print(classification_report(y_test, y_pred))
 # Visualização - Heatmap da Matriz de Confusão
 # =============================================
 cm = confusion_matrix(y_test, y_pred)
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(6,5))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Purples',
             xticklabels=label_encoders['cancel'].classes_,
             yticklabels=label_encoders['cancel'].classes_)

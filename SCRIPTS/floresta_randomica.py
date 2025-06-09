@@ -7,6 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 from sklearn.tree import plot_tree
 import matplotlib.pyplot as plt
+import seaborn as sns
 import os
 
 # Variáveis globais
@@ -42,7 +43,7 @@ y = df['cancel']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Criar e treinar o modelo de Floresta Randômica
-clf = RandomForestClassifier(n_estimators=100, random_state=42)
+clf = RandomForestClassifier(n_estimators=50, max_depth=10, random_state=42)
 clf.fit(X_train, y_train)
 
 # Previsão
@@ -53,17 +54,26 @@ print("Matriz de Confusão:\n", confusion_matrix(y_test, y_pred))
 print("Acurácia:", accuracy_score(y_test, y_pred))
 print("Relatório de Classificação:\n", classification_report(y_test, y_pred))
 
-# Visualizar uma única árvore da floresta
-plt.figure(figsize=(12, 8))
-plot_tree(clf.estimators_[0], filled=True, feature_names=X.columns, class_names=label_encoders['cancel'].classes_)
-plt.title("Árvore da Floresta Randômica (Primeira Árvore)")
+# Visualizar matriz de confusão
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(6, 5))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=label_encoders['cancel'].classes_, yticklabels=label_encoders['cancel'].classes_)
+plt.title('Matriz de Confusão - Floresta Randômica')
+plt.xlabel('Previsão')
+plt.ylabel('Verdadeiro')
 plt.show()
 
-# Plotar importância das features
-plt.figure(figsize=(10, 6))
-feature_importance = pd.Series(clf.feature_importances_, index=X.columns).sort_values(ascending=False)
-feature_importance.plot(kind='bar')
-plt.title("Importância das Features na Floresta Randômica")
-plt.xlabel("Features")
-plt.ylabel("Importância")
-plt.show()
+# # Visualizar uma única árvore da floresta
+# plt.figure(figsize=(12, 8))
+# plot_tree(clf.estimators_[0], filled=True, feature_names=X.columns, class_names=label_encoders['cancel'].classes_)
+# plt.title("Árvore da Floresta Randômica (Primeira Árvore)")
+# plt.show()
+
+# # Plotar importância das features
+# plt.figure(figsize=(10, 6))
+# feature_importance = pd.Series(clf.feature_importances_, index=X.columns).sort_values(ascending=False)
+# feature_importance.plot(kind='bar')
+# plt.title("Importância das Features na Floresta Randômica")
+# plt.xlabel("Features")
+# plt.ylabel("Importância")
+# plt.show()

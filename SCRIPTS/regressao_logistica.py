@@ -43,7 +43,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 # 6. Cria e treina o modelo de regressão logística
 #modelo = LogisticRegression()
-modelo = LogisticRegression(class_weight='balanced', max_iter=5000)
+modelo = LogisticRegression(class_weight='balanced', max_iter=5000, C=0.3)
 modelo.fit(X_train, y_train)
 
 # 7. Faz previsões com os dados de teste
@@ -132,7 +132,7 @@ plt.show()
 
 # 1. Heatmap da Matriz de Confusão
 cm = confusion_matrix(y_test, y_pred)
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(6, 5))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=label_encoders['cancel'].classes_, yticklabels=label_encoders['cancel'].classes_)
 plt.title('Matriz de Confusão - Regressão Logística')
 plt.xlabel('Previsão')

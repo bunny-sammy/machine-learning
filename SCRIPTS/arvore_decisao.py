@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
+import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Carregar o dataset
@@ -18,7 +19,7 @@ base_dir = os.path.abspath(os.path.join(os.getcwd(), ".."))
 db_dir = os.path.join(base_dir, "DADOS")
 os.makedirs(db_dir, exist_ok=True)
 
-file_path = os.path.join(db_dir, 'p33.xlsx')
+file_path = os.path.join(db_dir, 'p33_clean.xlsx')
 df = pd.read_excel(file_path, 'TECAL')
 
 # Exibir as primeiras linhas do dataframe
@@ -36,7 +37,7 @@ for col in CATEGORICAS:
     label_encoders[col] = le
 
 # Separar variáveis independentes e dependentes
-X = df.drop(['id', 'cancel'], axis=1)
+X = df.drop(['cancel'], axis=1)
 y = df['cancel']
 
 # Dividir os dados em treino e teste
@@ -53,6 +54,15 @@ y_pred = clf.predict(X_test)
 print("Matriz de Confusão:\n", confusion_matrix(y_test, y_pred))
 print("Acurácia:", accuracy_score(y_test, y_pred))
 print("Relatório de Classificação:\n", classification_report(y_test, y_pred))
+
+# Visualizar matriz de confusão
+cm = confusion_matrix(y_test, y_pred)
+plt.figure(figsize=(6, 5))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=label_encoders['cancel'].classes_, yticklabels=label_encoders['cancel'].classes_)
+plt.title('Matriz de Confusão - Árvore de Decisão')
+plt.xlabel('Previsão')
+plt.ylabel('Verdadeiro')
+plt.show()
 
 # Visualizar a árvore de decisão
 plt.figure(figsize=(12, 8))

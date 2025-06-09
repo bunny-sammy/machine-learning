@@ -56,7 +56,7 @@ X = scaler.fit_transform(X)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Criar e treinar o modelo KNN
-clf = KNeighborsClassifier(n_neighbors=5)
+clf = KNeighborsClassifier(n_neighbors=69)
 clf.fit(X_train, y_train)
 
 # Previsão
@@ -69,9 +69,9 @@ print("Relatório de Classificação:\n", classification_report(y_test, y_pred))
 
 # 1. Heatmap da Matriz de Confusão
 cm = confusion_matrix(y_test, y_pred)
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(6,5))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=label_encoders['cancel'].classes_, yticklabels=label_encoders['cancel'].classes_)
-plt.title('Matriz de Confusão')
+plt.title('Matriz de Confusão - KNN')
 plt.xlabel('Previsão')
 plt.ylabel('Verdadeiro')
 plt.show()
